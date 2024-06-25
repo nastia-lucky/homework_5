@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 
@@ -74,29 +75,25 @@ public class Helper {
 
   }
 
-
   public static String get(String endpoint, int statusCode) {
     RequestSpecification requestSpecification = RestAssured
-        .given();
-
+        .given()
+        .log()
+        .all();
     Response response = requestSpecification
         .baseUri(URI)
+        .log()
+        .all()
         .when()
         .log()
         .all()
         .get(endpoint);
-
     response.then()
-        .log()
-        .all()
-        .assertThat()
-        .statusCode(statusCode);
-
+        .statusCode(statusCode).log().all();
     return response.asString();
   }
 
-
-  public static String get(String endpoint) {
+  public static String getWithJSONValidation(String endpoint, String jsonSchemaPath, int statusCode) {
     RequestSpecification requestSpecification = RestAssured
         .given()
         .log()
@@ -109,25 +106,11 @@ public class Helper {
         .log()
         .all()
         .get(endpoint);
-    response.then().log().all();
-    return response.asString();
-  }
-
-  public static String getWithJSONValidation(String endpoint, String jsonSchemaPath) {
-    RequestSpecification requestSpecification = RestAssured
-        .given()
-        .log()
-        .all();
-    Response response = requestSpecification
-        .baseUri(URI)
-        .log()
-        .all()
-        .when()
-        .log()
-        .all()
-        .get(endpoint);
-    response.then().assertThat()
-        .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(jsonSchemaPath)).log().all();
+    System.out.println(response + "RESPONSE ");
+    ValidatableResponse validated= response.then().log().all().assertThat()
+        .statusCode(200);
+    System.out.println(validated + "Validated");
+    validated.body(JsonSchemaValidator.matchesJsonSchemaInClasspath(jsonSchemaPath)).log().all();
     return response.asString();
   }
 

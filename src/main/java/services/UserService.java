@@ -24,7 +24,7 @@ public class UserService {
   }
 
   public List<Long> getAllUsersIds() {
-    String response = Helper.get(EndpointsResolver.resolveEndpoint(Endpoints.ALL_USERS));
+    String response = Helper.get(EndpointsResolver.resolveEndpoint(Endpoints.ALL_USERS), 200);
     Long[] usersIds = null;
     try {
       usersIds = objectMapper.readValue(response, Long[].class);
@@ -39,7 +39,7 @@ public class UserService {
   }
 
   public UserModel getUser(Long id) {
-    String response = Helper.get(EndpointsResolver.resolveEndpoint(Endpoints.GET_USER) + id);
+    String response = Helper.get(EndpointsResolver.resolveEndpoint(Endpoints.GET_USER) + id, 200);
     UserModel userModel = null;
     try {
       userModel = objectMapper.readValue(response, UserModel.class);
@@ -50,7 +50,7 @@ public class UserService {
   }
 
   public UserModel getUserWithValidation(Long id) {
-    String response = Helper.getWithJSONValidation(EndpointsResolver.resolveEndpoint(Endpoints.GET_USER) + id, "jsons/UserSchema.json" );
+    String response = Helper.getWithJSONValidation(EndpointsResolver.resolveEndpoint(Endpoints.GET_USER) + id, "jsons/UserSchema.json", 200 );
     UserModel userModel = null;
     try {
       userModel = objectMapper.readValue(response, UserModel.class);

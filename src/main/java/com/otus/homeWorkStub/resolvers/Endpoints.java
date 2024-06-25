@@ -7,5 +7,4 @@ public enum Endpoints {
   ALL_COURSES,
   POST_USER
 
-
 }
