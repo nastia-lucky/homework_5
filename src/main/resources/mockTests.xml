@@ -1,7 +1,0 @@
-<suite name="Real Service Tests">
-    <test name="Smoke test T4">
-        <classes>
-            <class name="com.otus.homeWorkStub.myServiceTests.UsersStubTests"/>
-        </classes>
-    </test>
-</suite>
