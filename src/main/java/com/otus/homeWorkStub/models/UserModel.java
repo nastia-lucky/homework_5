@@ -3,6 +3,7 @@ package com.otus.homeWorkStub.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
 import java.util.Objects;
 
 
@@ -36,7 +37,7 @@ public class UserModel {
     return age;
   }
 
-  public void update(UserModel user){
+  public void update(UserModel user) {
     setName(user.name);
     setAge(user.age);
     setCourse(user.course);

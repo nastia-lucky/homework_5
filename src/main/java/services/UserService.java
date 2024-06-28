@@ -6,6 +6,7 @@ import com.otus.homeWorkStub.helpers.Helper;
 import com.otus.homeWorkStub.models.UserModel;
 import com.otus.homeWorkStub.resolvers.Endpoints;
 import com.otus.homeWorkStub.resolvers.EndpointsResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;

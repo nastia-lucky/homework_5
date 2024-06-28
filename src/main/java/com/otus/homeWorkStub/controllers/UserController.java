@@ -48,7 +48,11 @@ public class UserController {
     if (users.keySet().isEmpty()) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     }
-    users.get(id).update(user);
+    UserModel myUser=users.get(id);
+    myUser.setName(user.getName());
+    myUser.setCourse(user.getCourse());
+    myUser.setEmail(user.getEmail());
+    myUser.setAge(myUser.getAge());
   }
 
 
